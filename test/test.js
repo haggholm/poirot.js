@@ -6,8 +6,8 @@ var _ = require('lodash')
   , jsdom = require('jsdom');
 
 
-var templateDom = require('../lib/template-dom')
-  , Template = require('../lib/Template');
+var poirot = require('../lib/poirot')
+  , Template = require('../lib/poirot-template');
 
 
 function stripExtraAttrs(doc) {
@@ -35,13 +35,11 @@ describe('Template', function(){
           baz: 'baz-cls'
         };
       Template.setDocument(doc);
-      var tpl = templateDom.create(template, {verbose: true})
+      var tpl = poirot.create(template, {verbose: true})
         , rendered;
 
-      console.log('\n................\n');
       rendered = tpl(ctx);
 
-      console.log(rendered.getAttribute('class'));
       doc.body.innerHTML = rendered.outerHTML;
       console.log('Check results...');
       assert.equal(
