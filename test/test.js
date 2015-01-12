@@ -7,6 +7,7 @@ var _ = require('lodash')
 
 
 var poirot = require('../lib/poirot')
+  , parser = require('../lib/parse')
   , Template = require('../lib/poirot-template');
 
 
@@ -21,10 +22,10 @@ function stripExtraAttrs(doc) {
   return doc;
 }
 
+
 describe('Template', function(){
   describe('#render()', function() {
     it('should do stuff', function(){
-      console.log('Set up DOM...');
       var doc = jsdom.jsdom('<html><head></head><body></body></html>')
         , template = '<div><p>{{ foo }} and ' +
                      '<span class="{{baz}}">{{bar}}</span>' +
@@ -41,7 +42,6 @@ describe('Template', function(){
       rendered = tpl(ctx);
 
       doc.body.innerHTML = rendered.outerHTML;
-      console.log('Check results...');
       assert.equal(
         stripExtraAttrs(doc).body.innerHTML,
         '<div class="poirot-rendered">' +
@@ -52,5 +52,17 @@ describe('Template', function(){
         'Rendered output doesn\'t match'
       );
     });
+  });
+});
+
+
+describe('parser', function(){
+  describe('#blockify()', function(){
+    var text = '{{#foo}} hum {{#bar}}1, 2, 3{{/bar}}{{/foo}}'
+      , expected = '<div data-poirot-block="foo"> hum ' +
+                   '<div data-poirot-block="bar">1, 2, 3' +
+                   '</div>' +
+                   '</div>';
+    assert.equal(parser.blockify(text), expected);
   });
 });
