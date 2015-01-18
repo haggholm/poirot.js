@@ -1,4 +1,31 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: poirot.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: poirot.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Template-to-DOM framework.
  *
  * @module poirot
@@ -120,7 +147,7 @@ TemplateBuilder.prototype.processContent = function(node, match) {
   var refObj = (node.nodeType === NODE_TYPE_ATTR) ?
     this.getAttrReference(node) :
     this.getNodeReference(node);
-  if (format === template.TYPE.ESCAPED && match.open.length === 3) {
+  if (format === template.TYPE.ESCAPED &amp;&amp; match.open.length === 3) {
     format = template.TYPE.LITERAL;
   }
   switch (format) {
@@ -251,7 +278,7 @@ TemplateBuilder.prototype._processTextNode = function(node) {
   }
   var match, text = node.nodeValue;
 
-  if (text && (match = interParser.matchOne(text)) !== null) {
+  if (text &amp;&amp; (match = interParser.matchOne(text)) !== null) {
     if (/^{{[^}]+}}$/.test(text)) {
       // The node is nothing but mustache. Process it.
       var span = this.doc.createElement('span');
@@ -264,7 +291,7 @@ TemplateBuilder.prototype._processTextNode = function(node) {
       // We have to change it to a new node containing references.
 
       var m, child, i, matches = interParser.matchAll(text);
-      for (i = 0; i < matches.length; i++) {
+      for (i = 0; i &lt; matches.length; i++) {
         m = matches[i];
         if (m.preamble !== undefined) {
           node.parentNode.insertBefore(
@@ -281,7 +308,7 @@ TemplateBuilder.prototype._processTextNode = function(node) {
       _.forEach(matches, function(m) {
         combinedMatchLength += m.wholeMatch.length;
       });
-      if (combinedMatchLength < text.length) {
+      if (combinedMatchLength &lt; text.length) {
         postMatter = text.substr(combinedMatchLength);
         node.parentNode.insertBefore(this.doc.createTextNode(postMatter), node);
       }
@@ -301,7 +328,7 @@ function hasOnlyMustacheChild(el) {
   var tn = el.firstChild
     , text = tn.nodeValue
     , m = interParser.matchOne(text);
-  return m && (m.wholeMatch === text);
+  return m &amp;&amp; (m.wholeMatch === text);
 }
 
 /**
@@ -346,9 +373,9 @@ TemplateBuilder.prototype.processElement = function(element, isRoot) {
       this.blockExpr = element.getAttribute('data-poirot-block');
     }
 
-    if (element.childNodes.length === 1 &&
-        !element.hasAttribute('data-poirot-block') &&
-        element.childNodes[0].nodeName !== '#text' &&
+    if (element.childNodes.length === 1 &amp;&amp;
+        !element.hasAttribute('data-poirot-block') &amp;&amp;
+        element.childNodes[0].nodeName !== '#text' &amp;&amp;
         element.childNodes[0].hasAttribute('data-poirot-block'))
     {
       element.setAttribute(
@@ -361,7 +388,7 @@ TemplateBuilder.prototype.processElement = function(element, isRoot) {
       element.removeChild(element.firstChild);
     }
 
-    if (!isRoot && element.hasAttribute('data-poirot-block')) {
+    if (!isRoot &amp;&amp; element.hasAttribute('data-poirot-block')) {
       this.addSubTemplate(element);
 
     } else if (hasOnlyMustacheChild(element)) {
@@ -436,7 +463,7 @@ function stringifyHTML(html) {
   var str = JSON.stringify(html)
     , singleQuotes = str.replace(/[^']/g, '').length
     , doubleQuotes = str.replace(/[^"]/g, '').length;
-  if (doubleQuotes > singleQuotes && str[0] === '"') {
+  if (doubleQuotes > singleQuotes &amp;&amp; str[0] === '"') {
     str = "'" +
           str.slice(1, str.length-1)
             .replace(/\\"/g, '"')     // Unescape doublequotes "
@@ -447,7 +474,7 @@ function stringifyHTML(html) {
   var alt = '[' + str.split(/data-poirot/g).join(str[0]+','+str[0]) + ']';
   console.log('alt', alt);
   console.log('str', str);
-  return alt.length < str.length ? alt : str;
+  return alt.length &lt; str.length ? alt : str;
 }
 
 
@@ -487,13 +514,13 @@ function createAndRunTemplate(html, opts, method) {
     html = html.join('data-poirot');
   }
   if (typeof(html) === 'string') {
-    if (/^(<!doctype [^>\n]+>\n)?<html/.test(html)) {
+    if (/^(&lt;!doctype [^>\n]+>\n)?&lt;html/.test(html)) {
       doc = root = jsdom(blockParser(html));
     } else {
       doc = jsdom(
-        '<!doctype html>\n<html><body><div class="poirot-rendered">' +
+        '&lt;!doctype html>\n&lt;html>&lt;body>&lt;div class="poirot-rendered">' +
         blockParser(html) +
-        '</div></html></body>'
+        '&lt;/div>&lt;/html>&lt;/body>'
       );
       root = doc.body.firstChild;
     }
@@ -550,3 +577,26 @@ module.exports = {
   },
   Template: Template
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-poirot.html">poirot</a></li><li><a href="module-template.html">template</a></li></ul><h3>Classes</h3><ul><li><a href="Document.html">Document</a></li><li><a href="HTMLElement.html">HTMLElement</a></li><li><a href="module-poirot-TemplateBuilder.html">TemplateBuilder</a></li><li><a href="module-template-Template.html">Template</a></li><li><a href="template.Template.html">Template</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Sun Jan 18 2015 14:42:18 GMT-0800 (PST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
