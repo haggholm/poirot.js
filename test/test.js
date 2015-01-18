@@ -8,7 +8,7 @@ var _ = require('lodash')
 
 var poirot = require('../lib/poirot')
   , blockParser = require('../lib/block-parser')
-  , Template = require('../lib/poirot-template');
+  , Template = require('../lib/template');
 
 
 function stripExtraAttrs(doc) {

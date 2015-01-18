@@ -42,9 +42,3 @@ gulp.task('build-browserify', ['clean'], function(){
 
 
 gulp.task('build', ['build-umd']);
-
-gulp.task('testbuild', function() {
-  return gulp.src(['test/**/*.html'])
-    .pipe(require('./lib/gulp-plugin')())
-    .pipe(gulp.dest('./build'));
-});
