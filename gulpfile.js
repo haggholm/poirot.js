@@ -30,10 +30,15 @@ function createBundle(filename, opts) {
     .pipe(gulp.dest('release'));
 }
 
-gulp.task('build-amd', ['clean'], function(){
+gulp.task('build-umd', ['clean'], function(){
   return createBundle('poirot-template.min.js', {
     standalone: 'poirot-template'
   });
 });
 
-gulp.task('build', ['build-amd']);
+gulp.task('build-browserify', ['clean'], function(){
+  return createBundle('poirot-template.browserify.min.js');
+});
+
+
+gulp.task('build', ['build-umd']);
