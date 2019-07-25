@@ -1,5 +1,7 @@
 # poirot
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/haggholm/poirot.js.svg)](https://greenkeeper.io/)
+
 poirot: Small, but quick and clever mustache.
 
 The chief motivation behind these templates is to provide an efficient way
